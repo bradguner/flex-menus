@@ -9,6 +9,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ public class MainActivity extends Activity implements AnimationListener {
 
     Button moveButton;
     TextView txtView;
+    ImageView imgView;
+    private boolean menuVisible;
     private LinearLayout LL;
 
     @Override
@@ -24,28 +27,47 @@ public class MainActivity extends Activity implements AnimationListener {
         setContentView(R.layout.activity_main);
 
         txtView = (TextView) findViewById(R.id.txtView);
+        imgView = (ImageView) findViewById(R.id.imageView);
 
         LL = (LinearLayout) this.findViewById(R.id.MenuLayout);
 
+        menuVisible = false;
 
         //finally
-        final Animation anim = AnimationUtils.loadAnimation(this, R.anim.slide_in_menu);
-        anim.setAnimationListener(this);
-       //LL.startAnimation(anim);
+        final Animation animShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_menu);
+        animShow.setAnimationListener(this);
+
+        final Animation animHide = AnimationUtils.loadAnimation(this, R.anim.slide_out_menu);
+        animHide.setAnimationListener(this);
+
 
         moveButton = (Button) findViewById(R.id.mvBtn);
         moveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                moveTheImage(anim);
+                if (menuVisible) {
+                    hideMenu(animHide);
+                }
+                else {
+                    displayMenu(animShow);
+                }
             }
         });
 
 
     }
 
-    private void moveTheImage(Animation anim) {
-        txtView.setText("It Worked!");
-        LL.startAnimation(anim);
+
+
+    private void displayMenu(Animation anim) {
+        txtView.setText("Showing!");
+        imgView.startAnimation(anim);
+        menuVisible = true;
+    }
+
+    private void hideMenu(Animation anim) {
+        txtView.setText("Hidden!");
+        imgView.startAnimation(anim);
+        menuVisible = false;
     }
 
     @Override
