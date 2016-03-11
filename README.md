@@ -3,4 +3,5 @@ Android App showing the use of marking menus for the ReFlex phone from Queen's U
 
 To Do
 * Read in from bluetooth stream
-* Fix Animation so that only the ImageView moves
+* Fix that the imageView always comes back after the animation
+* Should start off screen, animate in, stay until clicked again, then hide and stay hidden
