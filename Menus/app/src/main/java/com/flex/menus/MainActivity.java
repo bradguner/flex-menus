@@ -31,7 +31,8 @@ public class MainActivity extends Activity implements AnimationListener {
 
         LL = (LinearLayout) this.findViewById(R.id.MenuLayout);
 
-        menuVisible = false;
+
+
 
         //finally
         final Animation animShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_menu);
@@ -39,6 +40,9 @@ public class MainActivity extends Activity implements AnimationListener {
 
         final Animation animHide = AnimationUtils.loadAnimation(this, R.anim.slide_out_menu);
         animHide.setAnimationListener(this);
+
+        menuVisible = false;
+        imgView.startAnimation(animHide);
 
 
         moveButton = (Button) findViewById(R.id.mvBtn);
