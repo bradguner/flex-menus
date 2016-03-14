@@ -5,6 +5,7 @@ To Do
 * Read in from bluetooth stream
 * Fix that the imageView always comes back after the animation
 * Should start off screen, animate in, stay until clicked again, then hide and stay hidden
+* change view layouts & image cut out white space
 
 Screen Dimensions: 13.5cm x 8cm
 Thumb Space: 2cm - 4cm
