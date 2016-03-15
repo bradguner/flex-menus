@@ -24,10 +24,17 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity  {
 
-    private Button moveButton;
+    // flags
     private static boolean menuVisible;
     private static boolean filterMenuVisible;
+
     public RelativeLayout RL;
+
+    // bend buttons - remove after
+    private Button bendInButton;
+    private Button bendOutButton;
+    private Button deInButton;
+    private Button deOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,89 +46,37 @@ public class MainActivity extends Activity  {
         menuVisible = false;
         filterMenuVisible = false;
 
-        // button to mimic bend gesture
-        moveButton = (Button) findViewById(R.id.mvBtn);
-        moveButton.setOnClickListener(new View.OnClickListener() {
+        // button to mimic bend gesture - remove after
+        bendInButton = (Button) findViewById(R.id.bendInBtn);
+        bendInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (menuVisible) { //close main menu frgament
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
-
-                    Fragment f = getFragmentManager().findFragmentByTag("mainMenuFragment");
-                    fragmentTransaction.remove(f);
-                    fragmentTransaction.commit();
-
-                    menuVisible = false;
-                } else if (!menuVisible && filterMenuVisible) { //filter menu is visible, return to main frgament
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.popBackStackImmediate();
-                    menuVisible = true;
-                    filterMenuVisible = false;
-
-                } else { //no fragments visible, display main menu fragment
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
-
-                    MainMenuFragment fragment = new MainMenuFragment();
-                    fragmentTransaction.add(R.id.fragmentContainer, fragment, "mainMenuFragment");
-                    fragmentTransaction.commit();
-
-                    menuVisible = true;
-                }
+                bendIn();
+            }
+        });
+        bendOutButton = (Button) findViewById(R.id.bendOutBtn);
+        bendOutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                bendOut();
+            }
+        });
+        deInButton = (Button) findViewById(R.id.deInBtn);
+        deInButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                dogEarIn();
+            }
+        });
+        deOutButton = (Button) findViewById(R.id.deOutBtn);
+        deOutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                dogEarOut();
             }
         });
 
 
-
     } // end onCreate
 
-    public Bitmap SetBrightness(Bitmap src, int value) {
-        // original image size
-        int width = src.getWidth();
-        int height = src.getHeight();
-        System.out.println("start");
-        // create output bitmap
-        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
-        // color information
-        int A, R, G, B;
-        int pixel;
 
-        // scan through all pixels
-        for(int x = 0; x < width; ++x) {
-            for(int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
-
-                // increase/decrease each channel
-                R += value;
-                if(R > 255) { R = 255; }
-                else if(R < 0) { R = 0; }
-
-                G += value;
-                if(G > 255) { G = 255; }
-                else if(G < 0) { G = 0; }
-
-                B += value;
-                if(B > 255) { B = 255; }
-                else if(B < 0) { B = 0; }
-
-                // apply new pixel color to output bitmap
-                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
-            }
-        }
-        System.out.println("done");
-        // return final image
-        return bmOut;
-    }
-
-
-    // Change Background Methods
+    // Change Background Methods - Remove these after
     public void changeBackgroundStar(View v){
         RL.setBackgroundResource(R.drawable.star_photo);
     }
@@ -130,6 +85,59 @@ public class MainActivity extends Activity  {
     }
     public void changeBackgroundTemperature(View v){
         RL.setBackgroundResource(R.drawable.temperature_photo);
+    }
+    public void changeBackgroundImage(View v, int id) {
+        /*
+            id      bg
+            0       bg_normal
+            1       bg_blackwhite
+            2       bg_sepia
+            3       bg_harsh
+            4       bg_vintage
+            5       bg_blur1
+            6       bg_blur2
+            7       bg_bright1
+            8       bg_bright2
+            9       bg_bright3
+            10      bg_bright4
+        */
+        switch(id) {
+            case 0:
+                RL.setBackgroundResource(R.drawable.bg_normal);
+                break;
+            case 1:
+                RL.setBackgroundResource(R.drawable.bg_blackwhite);
+                break;
+            case 2:
+                RL.setBackgroundResource(R.drawable.bg_sepia);
+                break;
+            case 3:
+                RL.setBackgroundResource(R.drawable.bg_harsh);
+                break;
+            case 4:
+                RL.setBackgroundResource(R.drawable.bg_vintage);
+                break;
+            case 5:
+                RL.setBackgroundResource(R.drawable.bg_blur1);
+                break;
+            case 6:
+                RL.setBackgroundResource(R.drawable.bg_blur2);
+                break;
+            case 7:
+                RL.setBackgroundResource(R.drawable.bg_bright1);
+                break;
+            case 8:
+                RL.setBackgroundResource(R.drawable.bg_bright2);
+                break;
+            case 9:
+                RL.setBackgroundResource(R.drawable.bg_bright3);
+                break;
+            case 10:
+                RL.setBackgroundResource(R.drawable.bg_bright4);
+                break;
+            default:
+                break;
+        }
     }
 
     public void changeToFilterMenu(View v){
@@ -143,50 +151,67 @@ public class MainActivity extends Activity  {
         fragmentTransaction.commit();
     }
 
-    public void darker(View v){
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.orig_photo);
-
-        Bitmap converted = SetBrightness(largeIcon, 60);
-        Drawable drawable = new BitmapDrawable(getResources(), converted);
-        RL.setBackground(drawable);
-        System.out.println("brighten");
-    }
-
-    // react to a bend and based on what integer was sent react accordingly
-    // bend values
-
-    /**
-     * bend
-     * 1 : Side bend inward
-     * 2 : Side bend outward
-     * 3 : Dog ear in
-     * 4 : Dog ear out
-     */
     /*
-    public void reactToBend(int bend) {
-        switch(bend) {
-            case 1:
-                if (!menuVisible) {
-                    displayMenu(animShow);
-                }
-                // future
-                // if !menuVisible and certain touch event then perform action
-                // if !menuVisible and no touch, show menu
-                break;
-            case 2:
-                if (menuVisible) {
-                    hideMenu(animHide);
-                }
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                break;
+            if (menuVisible) { //close main menu frgament
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
+
+            Fragment f = getFragmentManager().findFragmentByTag("mainMenuFragment");
+            fragmentTransaction.remove(f);
+            fragmentTransaction.commit();
+
+            menuVisible = false;
+     */
+
+
+    // call this upon a side bend in
+    public void bendIn() {
+        if (menuVisible) {
+
+        } else if (!menuVisible && filterMenuVisible) { //filter menu is visible, return to main frgament
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStackImmediate();
+            menuVisible = true;
+            filterMenuVisible = false;
+
+        } else { //no fragments visible, display main menu fragment
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
+
+            MainMenuFragment fragment = new MainMenuFragment();
+            fragmentTransaction.add(R.id.fragmentContainer, fragment, "mainMenuFragment");
+            fragmentTransaction.commit();
+
+            menuVisible = true;
         }
     }
 
-    */
+    // call this upon a side bend out
+    public void bendOut() {
+        if (menuVisible) { //close main menu frgament
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
+
+            Fragment f = getFragmentManager().findFragmentByTag("mainMenuFragment");
+            fragmentTransaction.remove(f);
+            fragmentTransaction.commit();
+
+            menuVisible = false;
+        } else if (!menuVisible && filterMenuVisible) { //filter menu is visible, return to main frgament
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStackImmediate();
+            menuVisible = true;
+            filterMenuVisible = false;
+        }
+    }
+
+    // call this upon a dog ear bend in
+    public void dogEarIn() {}
+
+    // call this upon a dog ear bend out
+    public void dogEarOut() {}
 
 }
