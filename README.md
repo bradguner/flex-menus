@@ -2,15 +2,14 @@
 Android App showing the use of marking menus for the ReFlex phone from Queen's University Human Media Lab.
 
 To Do
-* Read in from bluetooth stream
-* Fix that the imageView always comes back after the animation
-* Should start off screen, animate in, stay until clicked again, then hide and stay hidden
-* look into fragments
-* has image, then 3 filter options in our menu, changes image
-
-Screen Dimensions: 13.5cm x 8cm
-Thumb Space: 2cm - 4cm
-Thumb Space %: 22%
-
-How are we doing dog-ear?
-How are we doing hierarchy style menus?
+* Bluetooth / Bend Gestures
+  * Receive 2 int's from bluetooth stream
+  * determine which bend they signify 
+  * side bend in 1 - open
+  * side bend in 2 - open current selection to next level of menu or select option if not another level
+  * side bend in 3 - select option
+  * side bend out - go back 1 level or close menu
+* Marking Menu Update
+  *  Update images
+  *  ability to calculate where finger is located on that fragment and calculate which option is the closest
+  *  go to next level of hierarchy
