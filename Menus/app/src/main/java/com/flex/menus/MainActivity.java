@@ -4,12 +4,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -46,21 +53,19 @@ public class MainActivity extends Activity  {
                     fragmentTransaction.commit();
 
                     menuVisible = false;
-                }
-                else if(!menuVisible && filterMenuVisible){ //filter menu is visible, return to main frgament
+                } else if (!menuVisible && filterMenuVisible) { //filter menu is visible, return to main frgament
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.popBackStackImmediate();
                     menuVisible = true;
                     filterMenuVisible = false;
 
-                }
-                else { //no fragments visible, display main menu fragment
+                } else { //no fragments visible, display main menu fragment
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
 
                     MainMenuFragment fragment = new MainMenuFragment();
-                    fragmentTransaction.add(R.id.fragmentContainer, fragment,"mainMenuFragment");
+                    fragmentTransaction.add(R.id.fragmentContainer, fragment, "mainMenuFragment");
                     fragmentTransaction.commit();
 
                     menuVisible = true;
@@ -68,7 +73,52 @@ public class MainActivity extends Activity  {
             }
         });
 
+
+
     } // end onCreate
+
+    public Bitmap SetBrightness(Bitmap src, int value) {
+        // original image size
+        int width = src.getWidth();
+        int height = src.getHeight();
+        System.out.println("start");
+        // create output bitmap
+        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
+        // color information
+        int A, R, G, B;
+        int pixel;
+
+        // scan through all pixels
+        for(int x = 0; x < width; ++x) {
+            for(int y = 0; y < height; ++y) {
+                // get pixel color
+                pixel = src.getPixel(x, y);
+                A = Color.alpha(pixel);
+                R = Color.red(pixel);
+                G = Color.green(pixel);
+                B = Color.blue(pixel);
+
+                // increase/decrease each channel
+                R += value;
+                if(R > 255) { R = 255; }
+                else if(R < 0) { R = 0; }
+
+                G += value;
+                if(G > 255) { G = 255; }
+                else if(G < 0) { G = 0; }
+
+                B += value;
+                if(B > 255) { B = 255; }
+                else if(B < 0) { B = 0; }
+
+                // apply new pixel color to output bitmap
+                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
+            }
+        }
+        System.out.println("done");
+        // return final image
+        return bmOut;
+    }
 
 
     // Change Background Methods
@@ -91,6 +141,15 @@ public class MainActivity extends Activity  {
         fragmentTransaction.replace(R.id.fragmentContainer, filterFragment,"FilterMenuFragment");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void darker(View v){
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.orig_photo);
+
+        Bitmap converted = SetBrightness(largeIcon, 60);
+        Drawable drawable = new BitmapDrawable(getResources(), converted);
+        RL.setBackground(drawable);
+        System.out.println("brighten");
     }
 
     // react to a bend and based on what integer was sent react accordingly

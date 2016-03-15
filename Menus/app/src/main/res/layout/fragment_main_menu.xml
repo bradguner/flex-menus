@@ -37,6 +37,6 @@
         android:id="@+id/imageButton3"
         android:layout_gravity="right|bottom"
         android:background="@drawable/rsz_brighten"
-        android:onClick="changeToFilterMenu"/>
+        android:onClick="darker"/>
 
 </FrameLayout>

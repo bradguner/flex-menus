@@ -9,8 +9,7 @@ android:layout_height="wrap_content"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Move"
-    android:id="@+id/mvBtn"
-    />
+    android:id="@+id/mvBtn" />
 
     <FrameLayout
         android:layout_weight="2"
@@ -22,7 +21,6 @@ android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:layout_alignParentEnd="true"
         android:id="@+id/fragmentContainer"></FrameLayout>
-
 
 
 </RelativeLayout>
