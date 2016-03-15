@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-    android:background="#d71515">
+    android:background="@drawable/orig_photo"
+    android:id="@+id/rela">
 
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Move"
     android:id="@+id/mvBtn"
-    android:layout_below="@+id/txtView"
     />
 
     <FrameLayout

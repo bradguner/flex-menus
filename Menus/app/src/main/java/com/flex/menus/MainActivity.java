@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity  {
@@ -20,7 +21,7 @@ public class MainActivity extends Activity  {
     private TextView txtView;
     private ImageView imgView;
     private static boolean menuVisible;
-    private LinearLayout LL;
+    public RelativeLayout RL;
     Animation animShow;
     Animation animHide;
 
@@ -31,6 +32,7 @@ public class MainActivity extends Activity  {
 
         //txtView = (TextView) findViewById(R.id.txtView);
        // imgView = (ImageView) findViewById(R.id.imageView);
+        RL = (RelativeLayout) findViewById(R.id.rela);
 
         /*
         // Animations
@@ -79,6 +81,18 @@ public class MainActivity extends Activity  {
 
         // run the bluetooth reading part
 
+    }
+
+
+
+    public void changeBackgroundStar(View v){
+        RL.setBackgroundResource(R.drawable.star_photo);
+    }
+    public void changeBackgroundSpace(View v){
+        RL.setBackgroundResource(R.drawable.space_photo);
+    }
+    public void changeBackgroundTemperature(View v){
+        RL.setBackgroundResource(R.drawable.temperature_photo);
     }
 
     // react to a bend and based on what integer was sent react accordingly

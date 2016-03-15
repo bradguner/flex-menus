@@ -14,4 +14,28 @@
         android:layout_height="wrap_content">
     </ImageView>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Star Filter"
+        android:id="@+id/button"
+        android:layout_gravity="center"
+        android:onClick="changeBackgroundStar"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Space Filter"
+        android:id="@+id/button3"
+        android:layout_gravity="right|bottom"
+        android:onClick="changeBackgroundSpace"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature"
+        android:id="@+id/button2"
+        android:layout_gravity="right|top"
+        android:onClick="changeBackgroundTemperature"/>
+
 </FrameLayout>

@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 
 /**
@@ -32,6 +33,7 @@ public class MenuFragment extends Fragment {
     public MenuFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
