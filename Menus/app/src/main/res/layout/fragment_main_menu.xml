@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.flex.menus.MenuFragment"
+    tools:context="com.flex.menus.MainMenuFragment"
     android:background="@android:color/transparent"
-    android:tag="FilterMenuFragment">
+    android:tag="mainMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -18,25 +18,25 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/starFilterPrev"
+        android:id="@+id/imageButton"
         android:layout_gravity="center"
-        android:background="@drawable/star_photo_prev"
-        android:onClick="changeBackgroundStar"/>
+        android:background="@drawable/rsz_tools"
+        android:onClick="changeToFilterMenu"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spaceFilterPrev"
+        android:id="@+id/imageButton2"
         android:layout_gravity="right|top"
-        android:background="@drawable/space_photo_prev"
-        android:onClick="changeBackgroundSpace"/>
+        android:background="@drawable/rsz_brighten"
+        android:onClick="changeToFilterMenu"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tempFilterPrev"
+        android:id="@+id/imageButton3"
         android:layout_gravity="right|bottom"
-        android:background="@drawable/temperature_photo_prev"
-        android:onClick="changeBackgroundTemperature"/>
+        android:background="@drawable/rsz_brighten"
+        android:onClick="changeToFilterMenu"/>
 
 </FrameLayout>

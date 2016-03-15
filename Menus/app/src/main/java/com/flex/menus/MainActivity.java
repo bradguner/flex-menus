@@ -19,6 +19,7 @@ public class MainActivity extends Activity  {
 
     private Button moveButton;
     private static boolean menuVisible;
+    private static boolean filterMenuVisible;
     public RelativeLayout RL;
 
     @Override
@@ -29,29 +30,37 @@ public class MainActivity extends Activity  {
         RL = (RelativeLayout) findViewById(R.id.rela);
 
         menuVisible = false;
+        filterMenuVisible = false;
 
         // button to mimic bend gesture
         moveButton = (Button) findViewById(R.id.mvBtn);
         moveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (menuVisible) {
+                if (menuVisible) { //close main menu frgament
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
 
-                    Fragment f = getFragmentManager().findFragmentByTag("generalMenu");
+                    Fragment f = getFragmentManager().findFragmentByTag("mainMenuFragment");
                     fragmentTransaction.remove(f);
                     fragmentTransaction.commit();
 
                     menuVisible = false;
                 }
-                else {
+                else if(!menuVisible && filterMenuVisible){ //filter menu is visible, return to main frgament
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.popBackStackImmediate();
+                    menuVisible = true;
+                    filterMenuVisible = false;
+
+                }
+                else { //no fragments visible, display main menu fragment
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
 
-                    MenuFragment fragment = new MenuFragment();
-                    fragmentTransaction.add(R.id.fragmentContainer, fragment,"generalMenu");
+                    MainMenuFragment fragment = new MainMenuFragment();
+                    fragmentTransaction.add(R.id.fragmentContainer, fragment,"mainMenuFragment");
                     fragmentTransaction.commit();
 
                     menuVisible = true;
@@ -71,6 +80,17 @@ public class MainActivity extends Activity  {
     }
     public void changeBackgroundTemperature(View v){
         RL.setBackgroundResource(R.drawable.temperature_photo);
+    }
+
+    public void changeToFilterMenu(View v){
+        filterMenuVisible = true;
+        menuVisible = false;
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MenuFragment filterFragment = new MenuFragment();
+        fragmentTransaction.replace(R.id.fragmentContainer, filterFragment,"FilterMenuFragment");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     // react to a bend and based on what integer was sent react accordingly
