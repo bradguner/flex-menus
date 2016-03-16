@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-    android:background="@drawable/orig_photo"
-    android:id="@+id/rela">
-
-<Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Move"
-    android:id="@+id/mvBtn" />
+    android:background="@drawable/bg_normal"
+    android:id="@+id/rela">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bend In"
+        android:id="@+id/bendInBtn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bend Out"
+        android:layout_below="@+id/bendInBtn"
+        android:id="@+id/bendOutBtn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DE In"
+        android:layout_below="@+id/bendOutBtn"
+        android:id="@+id/deInBtn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DE Out"
+        android:layout_below="@+id/deInBtn"
+        android:id="@+id/deOutBtn" />
 
     <FrameLayout
         android:layout_weight="2"

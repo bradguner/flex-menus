@@ -18,25 +18,41 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/starFilterPrev"
-        android:layout_gravity="center"
-        android:background="@drawable/star_photo_prev"
-        android:onClick="changeBackgroundStar"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spaceFilterPrev"
+        android:id="@+id/filterBlackWhite"
         android:layout_gravity="right|top"
-        android:background="@drawable/space_photo_prev"
-        android:onClick="changeBackgroundSpace"/>
+        android:background="@drawable/button_blackwhite"
+        android:onClick="changeBgBlackWhite"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tempFilterPrev"
+        android:id="@+id/filterNormal"
+        android:layout_gravity="left|center_vertical"
+        android:background="@drawable/button_normal"
+        android:onClick="changeBgNormal"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/filterSepia"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/button_sepia"
+        android:onClick="changeBgSepia"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/filterVintage"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/button_vintage"
+        android:onClick="changeBgVintage"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/filterHarsh"
         android:layout_gravity="right|bottom"
-        android:background="@drawable/temperature_photo_prev"
-        android:onClick="changeBackgroundTemperature"/>
+        android:background="@drawable/button_harsh"
+        android:onClick="changeBgHarsh"/>
 
 </FrameLayout>
