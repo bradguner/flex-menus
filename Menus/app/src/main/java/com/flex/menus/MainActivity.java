@@ -28,7 +28,6 @@ public class MainActivity extends Activity  {
     // flags
     private static boolean menuVisible;
     private static boolean filterMenuVisible;
-    private static int currentBg;
     private static int mode;
     private static int brightness;
     private static int blur;
@@ -51,7 +50,6 @@ public class MainActivity extends Activity  {
         //sets flags default values
         menuVisible = false;
         filterMenuVisible = false;
-        currentBg = 0;
         mode = 0; // 0 = none, 1 = brightness, 2 = blur
         brightness = 0;
         blur = 0;
@@ -85,52 +83,25 @@ public class MainActivity extends Activity  {
 
     } // end onCreate
 
-
-    // Change Background Methods - Remove these after
-    public void changeBackgroundStar(View v){
-        RL.setBackgroundResource(R.drawable.star_photo);
-    }
-    public void changeBackgroundSpace(View v){
-        RL.setBackgroundResource(R.drawable.space_photo);
-    }
-    public void changeBackgroundTemperature(View v){
-        RL.setBackgroundResource(R.drawable.temperature_photo);
-    }
-
-    // NEEDED METHODS
-    public void changeBgNormal() { RL.setBackgroundResource(R.drawable.bg_normal); currentBg = 0; }
-    public void changeBgBlackWhite(View v) { RL.setBackgroundResource(R.drawable.bg_blackwhite); currentBg = 1; }
-    public void changeBgSepia(View v) { RL.setBackgroundResource(R.drawable.bg_sepia); currentBg = 2; }
-    public void changeBgHarsh(View v) { RL.setBackgroundResource(R.drawable.bg_harsh); currentBg = 3; }
-    public void changeBgVintage(View v) { RL.setBackgroundResource(R.drawable.bg_vintage); currentBg = 4; }
-    public void changeBgBlur1() { RL.setBackgroundResource(R.drawable.bg_blur1); currentBg = 5; }
-    public void changeBgBlur2() { RL.setBackgroundResource(R.drawable.bg_blur2); currentBg = 6; }
-    public void changeBgBright1() { RL.setBackgroundResource(R.drawable.bg_bright1); currentBg = 7; }
-    public void changeBgBright2() { RL.setBackgroundResource(R.drawable.bg_bright2); currentBg = 8; }
-    public void changeBgBright3() { RL.setBackgroundResource(R.drawable.bg_bright3); currentBg = 9; }
-    public void changeBgBright4() { RL.setBackgroundResource(R.drawable.bg_bright4); currentBg = 10; }
-    /*
-            id      bg
-            0       bg_normal
-            1       bg_blackwhite
-            2       bg_sepia
-            3       bg_harsh
-            4       bg_vintage
-            5       bg_blur1
-            6       bg_blur2
-            7       bg_bright1
-            8       bg_bright2
-            9       bg_bright3
-            10      bg_bright4
-    */
+    public void changeBgNormal(View v) { RL.setBackgroundResource(R.drawable.bg_normal); }
+    public void changeBgNormal2() { RL.setBackgroundResource(R.drawable.bg_normal); }
+    public void changeBgBlackWhite(View v) { RL.setBackgroundResource(R.drawable.bg_blackwhite); }
+    public void changeBgSepia(View v) { RL.setBackgroundResource(R.drawable.bg_sepia); }
+    public void changeBgHarsh(View v) { RL.setBackgroundResource(R.drawable.bg_harsh); }
+    public void changeBgVintage(View v) { RL.setBackgroundResource(R.drawable.bg_vintage); }
+    public void changeBgBlur1() { RL.setBackgroundResource(R.drawable.bg_blur1); }
+    public void changeBgBlur2() { RL.setBackgroundResource(R.drawable.bg_blur2); }
+    public void changeBgBright1() { RL.setBackgroundResource(R.drawable.bg_bright1); }
+    public void changeBgBright2() { RL.setBackgroundResource(R.drawable.bg_bright2); }
+    public void changeBgBright3() { RL.setBackgroundResource(R.drawable.bg_bright3); }
+    public void changeBgBright4() { RL.setBackgroundResource(R.drawable.bg_bright4); }
 
 
-
-
-
+    // change to the filter menu
     public void changeToFilterMenu(View v){
         filterMenuVisible = true;
         menuVisible = false;
+        mode = 0;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MenuFragment filterFragment = new MenuFragment();
@@ -139,6 +110,7 @@ public class MainActivity extends Activity  {
         fragmentTransaction.commit();
     }
 
+    // change to selected brightness icon and set flag for mode
     public void changeToBrightness(View v) {
         // change images
         v.setBackgroundResource(R.drawable.brightness_selected);
@@ -146,6 +118,7 @@ public class MainActivity extends Activity  {
         mode = 1;
     }
 
+    // change to selected blur icon and set flag for mode
     public void changeToBlur(View v) {
         // change images
         v.setBackgroundResource(R.drawable.blur_selected);
@@ -156,7 +129,7 @@ public class MainActivity extends Activity  {
     // call this upon a side bend in
     public void bendIn() {
         if (menuVisible) {
-
+            // do nothing
         } else if (!menuVisible && filterMenuVisible) { //filter menu is visible, return to main frgament
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.popBackStackImmediate();
@@ -209,7 +182,7 @@ public class MainActivity extends Activity  {
                     brightness = 2;
                     break;
                 case 2: // bright2 -> normal
-                    changeBgNormal();
+                    changeBgNormal2();
                     brightness = 0;
                     break;
                 case 3: // bright3 -> bright4
@@ -220,10 +193,27 @@ public class MainActivity extends Activity  {
                     changeBgBright1();
                     brightness = 1;
                     break;
+                default:
+                    break;
             }
         }
         else if (mode == 2) { //blur
-
+            switch (blur) {
+                case 0: // normal -> blur1
+                    changeBgBlur1();
+                    blur = 1;
+                    break;
+                case 1: // blur1 -> blur2
+                    changeBgBlur2();
+                    blur = 2;
+                    break;
+                case 2: // blur2 -> normal
+                    changeBgNormal2();
+                    blur = 0;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -244,17 +234,34 @@ public class MainActivity extends Activity  {
                     brightness = 1;
                     break;
                 case 3: // bright3 -> normal
-                    changeBgNormal();
+                    changeBgNormal2();
                     brightness = 0;
                     break;
                 case 4: // bright4 -> bright3
                     changeBgBright3();
                     brightness = 3;
                     break;
+                default:
+                    break;
             }
         }
         else if (mode == 2) { //blur
-
+            switch (blur) {
+                case 0: // normal -> blur2
+                    changeBgBlur2();
+                    blur = 2;
+                    break;
+                case 1: // blur1 -> normal
+                    changeBgNormal2();
+                    blur = 0;
+                    break;
+                case 2: // blur2 -> blur1
+                    changeBgBlur1();
+                    blur = 1;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
