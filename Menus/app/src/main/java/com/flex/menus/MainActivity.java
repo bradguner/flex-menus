@@ -27,6 +27,7 @@ public class MainActivity extends Activity  {
     // flags
     private static boolean menuVisible;
     private static boolean filterMenuVisible;
+    private static int currentBg;
 
     public RelativeLayout RL;
 
@@ -43,8 +44,10 @@ public class MainActivity extends Activity  {
 
         RL = (RelativeLayout) findViewById(R.id.rela);
 
+        //sets flags default values
         menuVisible = false;
         filterMenuVisible = false;
+        currentBg = 0;
 
         // button to mimic bend gesture - remove after
         bendInButton = (Button) findViewById(R.id.bendInBtn);
@@ -86,8 +89,20 @@ public class MainActivity extends Activity  {
     public void changeBackgroundTemperature(View v){
         RL.setBackgroundResource(R.drawable.temperature_photo);
     }
-    public void changeBackgroundImage(View v, int id) {
-        /*
+
+    // NEEDED METHODS
+    public void changeBgNormal(View v) {RL.setBackgroundResource(R.drawable.bg_normal); currentBg = 0;}
+    public void changeBgBlackWhite(View v) {RL.setBackgroundResource(R.drawable.bg_blackwhite); currentBg = 1;}
+    public void changeBgSepia(View v) {RL.setBackgroundResource(R.drawable.bg_sepia); currentBg = 2;}
+    public void changeBgHarsh(View v) {RL.setBackgroundResource(R.drawable.bg_harsh); currentBg = 3;}
+    public void changeBgVintage(View v) {RL.setBackgroundResource(R.drawable.bg_vintage); currentBg = 4;}
+    public void changeBgBlur1(View v) {RL.setBackgroundResource(R.drawable.bg_blur1); currentBg = 5;}
+    public void changeBgBlur2(View v) {RL.setBackgroundResource(R.drawable.bg_blur2); currentBg = 6;}
+    public void changeBgBright1(View v) {RL.setBackgroundResource(R.drawable.bg_bright1); currentBg = 7;}
+    public void changeBgBright2(View v) {RL.setBackgroundResource(R.drawable.bg_bright2); currentBg = 8;}
+    public void changeBgBright3(View v) {RL.setBackgroundResource(R.drawable.bg_bright3); currentBg = 9;}
+    public void changeBgBright4(View v) {RL.setBackgroundResource(R.drawable.bg_bright4); currentBg = 10;}
+    /*
             id      bg
             0       bg_normal
             1       bg_blackwhite
@@ -100,45 +115,11 @@ public class MainActivity extends Activity  {
             8       bg_bright2
             9       bg_bright3
             10      bg_bright4
-        */
-        switch(id) {
-            case 0:
-                RL.setBackgroundResource(R.drawable.bg_normal);
-                break;
-            case 1:
-                RL.setBackgroundResource(R.drawable.bg_blackwhite);
-                break;
-            case 2:
-                RL.setBackgroundResource(R.drawable.bg_sepia);
-                break;
-            case 3:
-                RL.setBackgroundResource(R.drawable.bg_harsh);
-                break;
-            case 4:
-                RL.setBackgroundResource(R.drawable.bg_vintage);
-                break;
-            case 5:
-                RL.setBackgroundResource(R.drawable.bg_blur1);
-                break;
-            case 6:
-                RL.setBackgroundResource(R.drawable.bg_blur2);
-                break;
-            case 7:
-                RL.setBackgroundResource(R.drawable.bg_bright1);
-                break;
-            case 8:
-                RL.setBackgroundResource(R.drawable.bg_bright2);
-                break;
-            case 9:
-                RL.setBackgroundResource(R.drawable.bg_bright3);
-                break;
-            case 10:
-                RL.setBackgroundResource(R.drawable.bg_bright4);
-                break;
-            default:
-                break;
-        }
-    }
+    */
+
+
+
+
 
     public void changeToFilterMenu(View v){
         filterMenuVisible = true;
@@ -150,20 +131,6 @@ public class MainActivity extends Activity  {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
-    /*
-            if (menuVisible) { //close main menu frgament
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
-
-            Fragment f = getFragmentManager().findFragmentByTag("mainMenuFragment");
-            fragmentTransaction.remove(f);
-            fragmentTransaction.commit();
-
-            menuVisible = false;
-     */
-
 
     // call this upon a side bend in
     public void bendIn() {
