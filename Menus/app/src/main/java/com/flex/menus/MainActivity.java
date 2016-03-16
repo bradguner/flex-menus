@@ -91,17 +91,17 @@ public class MainActivity extends Activity  {
     }
 
     // NEEDED METHODS
-    public void changeBgNormal(View v) {RL.setBackgroundResource(R.drawable.bg_normal); currentBg = 0;}
-    public void changeBgBlackWhite(View v) {RL.setBackgroundResource(R.drawable.bg_blackwhite); currentBg = 1;}
-    public void changeBgSepia(View v) {RL.setBackgroundResource(R.drawable.bg_sepia); currentBg = 2;}
-    public void changeBgHarsh(View v) {RL.setBackgroundResource(R.drawable.bg_harsh); currentBg = 3;}
-    public void changeBgVintage(View v) {RL.setBackgroundResource(R.drawable.bg_vintage); currentBg = 4;}
-    public void changeBgBlur1(View v) {RL.setBackgroundResource(R.drawable.bg_blur1); currentBg = 5;}
-    public void changeBgBlur2(View v) {RL.setBackgroundResource(R.drawable.bg_blur2); currentBg = 6;}
-    public void changeBgBright1(View v) {RL.setBackgroundResource(R.drawable.bg_bright1); currentBg = 7;}
-    public void changeBgBright2(View v) {RL.setBackgroundResource(R.drawable.bg_bright2); currentBg = 8;}
-    public void changeBgBright3(View v) {RL.setBackgroundResource(R.drawable.bg_bright3); currentBg = 9;}
-    public void changeBgBright4(View v) {RL.setBackgroundResource(R.drawable.bg_bright4); currentBg = 10;}
+    public void changeBgNormal(View v) { RL.setBackgroundResource(R.drawable.bg_normal); currentBg = 0; }
+    public void changeBgBlackWhite(View v) { RL.setBackgroundResource(R.drawable.bg_blackwhite); currentBg = 1; }
+    public void changeBgSepia(View v) { RL.setBackgroundResource(R.drawable.bg_sepia); currentBg = 2; }
+    public void changeBgHarsh(View v) { RL.setBackgroundResource(R.drawable.bg_harsh); currentBg = 3; }
+    public void changeBgVintage(View v) { RL.setBackgroundResource(R.drawable.bg_vintage); currentBg = 4; }
+    public void changeBgBlur1(View v) { RL.setBackgroundResource(R.drawable.bg_blur1); currentBg = 5; }
+    public void changeBgBlur2(View v) { RL.setBackgroundResource(R.drawable.bg_blur2); currentBg = 6; }
+    public void changeBgBright1(View v) { RL.setBackgroundResource(R.drawable.bg_bright1); currentBg = 7; }
+    public void changeBgBright2(View v) { RL.setBackgroundResource(R.drawable.bg_bright2); currentBg = 8; }
+    public void changeBgBright3(View v) { RL.setBackgroundResource(R.drawable.bg_bright3); currentBg = 9; }
+    public void changeBgBright4(View v) { RL.setBackgroundResource(R.drawable.bg_bright4); currentBg = 10; }
     /*
             id      bg
             0       bg_normal

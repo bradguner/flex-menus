@@ -6,8 +6,8 @@
     android:background="@android:color/transparent"
     android:tag="mainMenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
+    <!-- MENU -->
     <ImageView
         android:id="@+id/imageView"
         android:background="@drawable/menus"
@@ -15,28 +15,32 @@
         android:layout_height="wrap_content">
     </ImageView>
 
+    <!-- BRIGHTNESS -->
+
+    <!-- BLUR -->
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton3"
+        android:layout_gravity="left|center"
+        android:background="@drawable/blur"
+        android:onClick="changeToFilterMenu"/>
+
+    <!-- FILTERS -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:layout_gravity="center"
-        android:background="@drawable/rsz_tools"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/filter"
         android:onClick="changeToFilterMenu"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton2"
-        android:layout_gravity="right|top"
-        android:background="@drawable/rsz_brighten"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/brightness"
         android:onClick="changeToFilterMenu"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton3"
-        android:layout_gravity="right|bottom"
-        android:background="@drawable/rsz_brighten"
-        android:onClick="darker"/>
 
 </FrameLayout>
