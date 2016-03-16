@@ -17,6 +17,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,6 +29,9 @@ public class MainActivity extends Activity  {
     private static boolean menuVisible;
     private static boolean filterMenuVisible;
     private static int currentBg;
+    private static int mode;
+    private static int brightness;
+    private static int blur;
 
     public RelativeLayout RL;
 
@@ -48,6 +52,10 @@ public class MainActivity extends Activity  {
         menuVisible = false;
         filterMenuVisible = false;
         currentBg = 0;
+        mode = 0; // 0 = none, 1 = brightness, 2 = blur
+        brightness = 0;
+        blur = 0;
+
 
         // button to mimic bend gesture - remove after
         bendInButton = (Button) findViewById(R.id.bendInBtn);
@@ -75,7 +83,6 @@ public class MainActivity extends Activity  {
             }
         });
 
-
     } // end onCreate
 
 
@@ -91,17 +98,17 @@ public class MainActivity extends Activity  {
     }
 
     // NEEDED METHODS
-    public void changeBgNormal(View v) { RL.setBackgroundResource(R.drawable.bg_normal); currentBg = 0; }
+    public void changeBgNormal() { RL.setBackgroundResource(R.drawable.bg_normal); currentBg = 0; }
     public void changeBgBlackWhite(View v) { RL.setBackgroundResource(R.drawable.bg_blackwhite); currentBg = 1; }
     public void changeBgSepia(View v) { RL.setBackgroundResource(R.drawable.bg_sepia); currentBg = 2; }
     public void changeBgHarsh(View v) { RL.setBackgroundResource(R.drawable.bg_harsh); currentBg = 3; }
     public void changeBgVintage(View v) { RL.setBackgroundResource(R.drawable.bg_vintage); currentBg = 4; }
-    public void changeBgBlur1(View v) { RL.setBackgroundResource(R.drawable.bg_blur1); currentBg = 5; }
-    public void changeBgBlur2(View v) { RL.setBackgroundResource(R.drawable.bg_blur2); currentBg = 6; }
-    public void changeBgBright1(View v) { RL.setBackgroundResource(R.drawable.bg_bright1); currentBg = 7; }
-    public void changeBgBright2(View v) { RL.setBackgroundResource(R.drawable.bg_bright2); currentBg = 8; }
-    public void changeBgBright3(View v) { RL.setBackgroundResource(R.drawable.bg_bright3); currentBg = 9; }
-    public void changeBgBright4(View v) { RL.setBackgroundResource(R.drawable.bg_bright4); currentBg = 10; }
+    public void changeBgBlur1() { RL.setBackgroundResource(R.drawable.bg_blur1); currentBg = 5; }
+    public void changeBgBlur2() { RL.setBackgroundResource(R.drawable.bg_blur2); currentBg = 6; }
+    public void changeBgBright1() { RL.setBackgroundResource(R.drawable.bg_bright1); currentBg = 7; }
+    public void changeBgBright2() { RL.setBackgroundResource(R.drawable.bg_bright2); currentBg = 8; }
+    public void changeBgBright3() { RL.setBackgroundResource(R.drawable.bg_bright3); currentBg = 9; }
+    public void changeBgBright4() { RL.setBackgroundResource(R.drawable.bg_bright4); currentBg = 10; }
     /*
             id      bg
             0       bg_normal
@@ -130,6 +137,20 @@ public class MainActivity extends Activity  {
         fragmentTransaction.replace(R.id.fragmentContainer, filterFragment,"FilterMenuFragment");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void changeToBrightness(View v) {
+        // change images
+        v.setBackgroundResource(R.drawable.brightness_selected);
+        //set flag
+        mode = 1;
+    }
+
+    public void changeToBlur(View v) {
+        // change images
+        v.setBackgroundResource(R.drawable.blur_selected);
+        // set flag
+        mode = 2;
     }
 
     // call this upon a side bend in
@@ -176,9 +197,65 @@ public class MainActivity extends Activity  {
     }
 
     // call this upon a dog ear bend in
-    public void dogEarIn() {}
+    public void dogEarIn() {
+        if (mode == 1) { // brightness
+            switch (brightness) {
+                case 0: // normal -> bright3
+                    changeBgBright3();
+                    brightness = 3;
+                    break;
+                case 1: //bright1 -> bright2
+                    changeBgBright2();
+                    brightness = 2;
+                    break;
+                case 2: // bright2 -> normal
+                    changeBgNormal();
+                    brightness = 0;
+                    break;
+                case 3: // bright3 -> bright4
+                    changeBgBright4();
+                    brightness = 4;
+                    break;
+                case 4: // bright4 -> bright1
+                    changeBgBright1();
+                    brightness = 1;
+                    break;
+            }
+        }
+        else if (mode == 2) { //blur
+
+        }
+    }
 
     // call this upon a dog ear bend out
-    public void dogEarOut() {}
+    public void dogEarOut() {
+        if (mode == 1) { // brightness
+            switch (brightness) {
+                case 0: // normal -> bright2
+                    changeBgBright2();
+                    brightness = 2;
+                    break;
+                case 1: //bright1 -> bright4
+                    changeBgBright4();
+                    brightness = 4;
+                    break;
+                case 2: // bright2 -> bright1
+                    changeBgBright1();
+                    brightness = 1;
+                    break;
+                case 3: // bright3 -> normal
+                    changeBgNormal();
+                    brightness = 0;
+                    break;
+                case 4: // bright4 -> bright3
+                    changeBgBright3();
+                    brightness = 3;
+                    break;
+            }
+        }
+        else if (mode == 2) { //blur
+
+        }
+    }
 
 }

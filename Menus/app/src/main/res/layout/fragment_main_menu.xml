@@ -24,7 +24,7 @@
         android:id="@+id/imageButton3"
         android:layout_gravity="left|center"
         android:background="@drawable/blur"
-        android:onClick="changeToFilterMenu"/>
+        android:onClick="changeToBlur"/>
 
     <!-- FILTERS -->
     <ImageButton
@@ -41,6 +41,6 @@
         android:id="@+id/imageButton2"
         android:layout_gravity="center_horizontal|top"
         android:background="@drawable/brightness"
-        android:onClick="changeToFilterMenu"/>
+        android:onClick="changeToBrightness"/>
 
 </FrameLayout>
