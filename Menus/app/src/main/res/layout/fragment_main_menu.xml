@@ -6,7 +6,6 @@
     android:background="@android:color/transparent"
     android:tag="mainMenuFragment">
 
-
     <!-- MENU -->
     <ImageView
         android:id="@+id/imageView"
@@ -15,14 +14,20 @@
         android:layout_height="wrap_content">
     </ImageView>
 
-    <!-- BRIGHTNESS -->
+    <!--
+        Use these commands to position correctly
+        resize images currently 100px, first test at 50px
+        android:layout_marginRight="55dp"
+        android:layout_marginTop="45dp"
+    -->
 
     <!-- BLUR -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton3"
-        android:layout_gravity="left|center"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginRight="10dp"
         android:background="@drawable/blur"
         android:onClick="changeToBlur"/>
 
@@ -31,15 +36,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/filter"
         android:onClick="changeToFilterMenu"/>
 
+    <!-- BRIGHTNESS -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton2"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/brightness"
         android:onClick="changeToBrightness"/>
 
