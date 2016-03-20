@@ -28,8 +28,7 @@
         android:id="@+id/imageButton3"
         android:layout_gravity="left|center_vertical"
         android:layout_marginRight="10dp"
-        android:background="@drawable/blur"
-        android:onClick="changeToBlur"/>
+        android:background="@drawable/blur"/>
 
     <!-- FILTERS -->
     <ImageButton
@@ -50,7 +49,6 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="70dp"
-        android:background="@drawable/brightness"
-        android:onClick="changeToBrightness"/>
+        android:background="@drawable/brightness"/>
 
 </FrameLayout>

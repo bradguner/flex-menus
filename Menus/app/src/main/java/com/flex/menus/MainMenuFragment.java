@@ -91,7 +91,6 @@ public class MainMenuFragment extends Fragment {
                         }
                         if (y < 675 && y > 475) {
                             activity.changeToBlur(blurButton);
-
                         }
                     }
                 }
