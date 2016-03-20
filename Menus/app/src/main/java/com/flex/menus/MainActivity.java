@@ -17,6 +17,7 @@ public class MainActivity extends Activity  {
     private static int mode;
     private static int brightness;
     private static int blur;
+    private View lastButtonPressed;
 
     public RelativeLayout RL;
 
@@ -39,6 +40,7 @@ public class MainActivity extends Activity  {
         mode = 0; // 0 = none, 1 = brightness, 2 = blur
         brightness = 0;
         blur = 0;
+        lastButtonPressed = null;
 
 
         // button to mimic bend gesture - remove after
@@ -91,7 +93,7 @@ public class MainActivity extends Activity  {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MenuFragment filterFragment = new MenuFragment();
-        fragmentTransaction.replace(R.id.fragmentContainer, filterFragment,"FilterMenuFragment");
+        fragmentTransaction.replace(R.id.fragmentContainer, filterFragment, "FilterMenuFragment");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -99,7 +101,14 @@ public class MainActivity extends Activity  {
     // change to selected brightness icon and set flag for mode
     public void changeToBrightness(View v) {
         // change images
+        if (lastButtonPressed == null) {
+            lastButtonPressed = v;
+        }
+        else if (lastButtonPressed != v) {
+            lastButtonPressed.setBackgroundResource(R.drawable.blur);
+        }
         v.setBackgroundResource(R.drawable.brightness_selected);
+        lastButtonPressed = v;
         //set flag
         mode = 1;
     }
@@ -107,7 +116,14 @@ public class MainActivity extends Activity  {
     // change to selected blur icon and set flag for mode
     public void changeToBlur(View v) {
         // change images
+        if (lastButtonPressed == null) {
+            lastButtonPressed = v;
+        }
+        else if (lastButtonPressed != v) {
+            lastButtonPressed.setBackgroundResource(R.drawable.brightness);
+        }
         v.setBackgroundResource(R.drawable.blur_selected);
+        lastButtonPressed = v;
         // set flag
         mode = 2;
     }
