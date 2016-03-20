@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 
@@ -62,8 +64,41 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+        View fragView = inflater.inflate(R.layout.fragment_menu, container, false);
+        final MainActivity activity = (MainActivity) getActivity();
+
+
+        fragView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    float y = event.getRawY();
+                    if(y < 270){
+                        activity.changeBgBlackWhite();
+                    }
+                    if(y > 270 && y < 450){
+                        activity.changeBgSepia();
+                    }
+                    if(y > 450 && y < 678){
+                        activity.changeBgNormal();
+                    }
+                    if(y > 678 && y < 853){
+                        activity.changeBgVintage();
+                    }
+                    if(y > 853 && y < 1020){
+                        activity.changeBgHarsh();
+                    }
+
+                }
+                return true;
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        return fragView;
     }
 
 

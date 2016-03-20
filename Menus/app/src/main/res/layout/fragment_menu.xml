@@ -21,8 +21,7 @@
         android:id="@+id/filterNormal"
         android:layout_gravity="left|center_vertical"
         android:layout_marginRight="10dp"
-        android:background="@drawable/button_normal"
-        android:onClick="changeBgNormal"/>
+        android:background="@drawable/button_normal"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -31,8 +30,7 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="70dp"
-        android:background="@drawable/button_vintage"
-        android:onClick="changeBgVintage"/>
+        android:background="@drawable/button_vintage"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -41,8 +39,7 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="122dp"
-        android:background="@drawable/button_blackwhite"
-        android:onClick="changeBgBlackWhite"/>
+        android:background="@drawable/button_blackwhite"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -51,8 +48,7 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="122dp"
-        android:background="@drawable/button_harsh"
-        android:onClick="changeBgHarsh"/>
+        android:background="@drawable/button_harsh"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -61,7 +57,6 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="70dp"
-        android:background="@drawable/button_sepia"
-        android:onClick="changeBgSepia"/>
+        android:background="@drawable/button_sepia"/>
 
 </FrameLayout>

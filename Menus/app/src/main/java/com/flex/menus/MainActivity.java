@@ -74,12 +74,12 @@ public class MainActivity extends Activity  {
 
     } // end onCreate
 
-    public void changeBgNormal(View v) { RL.setBackgroundResource(R.drawable.bg_normal); }
+    public void changeBgNormal() { RL.setBackgroundResource(R.drawable.bg_normal); }
     public void changeBgNormal2() { RL.setBackgroundResource(R.drawable.bg_normal); }
-    public void changeBgBlackWhite(View v) { RL.setBackgroundResource(R.drawable.bg_blackwhite); }
-    public void changeBgSepia(View v) { RL.setBackgroundResource(R.drawable.bg_sepia); }
-    public void changeBgHarsh(View v) { RL.setBackgroundResource(R.drawable.bg_harsh); }
-    public void changeBgVintage(View v) { RL.setBackgroundResource(R.drawable.bg_vintage); }
+    public void changeBgBlackWhite() { RL.setBackgroundResource(R.drawable.bg_blackwhite); }
+    public void changeBgSepia() { RL.setBackgroundResource(R.drawable.bg_sepia); }
+    public void changeBgHarsh() { RL.setBackgroundResource(R.drawable.bg_harsh); }
+    public void changeBgVintage() { RL.setBackgroundResource(R.drawable.bg_vintage); }
     public void changeBgBlur1() { RL.setBackgroundResource(R.drawable.bg_blur1); }
     public void changeBgBlur2() { RL.setBackgroundResource(R.drawable.bg_blur2); }
     public void changeBgBright1() { RL.setBackgroundResource(R.drawable.bg_bright1); }

@@ -94,6 +94,7 @@ public class MainMenuFragment extends Fragment {
                         }
                     }
                 }
+                
                 return true;
             }
         });
