@@ -1,5 +1,7 @@
 package com.flex.menus;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -28,6 +31,8 @@ public class MainMenuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public ImageButton filterButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -56,25 +61,49 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View fragView = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        final MainActivity activity = (MainActivity) getActivity();
+
+        final ImageButton birghtnessButton = (ImageButton) fragView.findViewById(R.id.imageButton2);
+        final ImageButton blurButton = (ImageButton) fragView.findViewById(R.id.imageButton3);
+
+        fragView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    float y = event.getRawY();
+                    float top = 100;
+                    float bottom = 1000;
+                    if (y < bottom && y > top) {
+                        if (y > 675) {
+                            activity.changeToFilterMenu();
+                        }
+                        if (y < 475) {
+                            activity.changeToBrightness(birghtnessButton);
+                        }
+                        if (y < 675 && y > 475) {
+                            activity.changeToBlur(blurButton);
+
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_menu, container, false);
+        return fragView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
 
     @Override

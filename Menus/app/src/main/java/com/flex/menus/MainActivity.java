@@ -5,8 +5,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity  {
@@ -69,6 +71,7 @@ public class MainActivity extends Activity  {
             }
         });
 
+
     } // end onCreate
 
     public void changeBgNormal(View v) { RL.setBackgroundResource(R.drawable.bg_normal); }
@@ -86,7 +89,7 @@ public class MainActivity extends Activity  {
 
 
     // change to the filter menu
-    public void changeToFilterMenu(View v){
+    public void changeToFilterMenu(){
         filterMenuVisible = true;
         menuVisible = false;
         mode = 0;
