@@ -65,20 +65,34 @@ public class MainActivity extends Activity  {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         }
+        else{
+            Context context = getApplicationContext();
+            CharSequence text = "Bluetooth is supported";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
 
         //turn bluetooth on if disabled
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, 1);
+            System.out.println("bleutooth was not enabled but now is enabled");
+        }else{
+            System.out.println("bleutooth enabled");
         }
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         // If there are paired devices
         if (pairedDevices.size() > 0) {
+            System.out.println("looking for the deice)");
             // Loop through paired devices
             for (BluetoothDevice device : pairedDevices) {
                 // Add the name and address to an array adapter to show in a ListView
                 mDevice = device;
+                System.out.println("device connected/paired)");
+                System.out.println(mDevice);
             }
         }
 
@@ -186,10 +200,7 @@ public class MainActivity extends Activity  {
         if (menuVisible) {
             // do nothing
         } else if (!menuVisible && filterMenuVisible) { //filter menu is visible, return to main frgament
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.popBackStackImmediate();
-            menuVisible = true;
-            filterMenuVisible = false;
+            //do nothing, it's already open
 
         } else { //no fragments visible, display main menu fragment
             FragmentManager fragmentManager = getFragmentManager();
@@ -222,6 +233,8 @@ public class MainActivity extends Activity  {
             menuVisible = true;
             filterMenuVisible = false;
         }
+        //else do nothing
+
     }
 
     // call this upon a dog ear bend in
@@ -370,7 +383,7 @@ public class MainActivity extends Activity  {
             mmOutStream = tmpOut;
         }
         public void run() {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[3];
             int begin = 0;
             int bytes = 0;
             while (true) {
@@ -378,7 +391,8 @@ public class MainActivity extends Activity  {
                     bytes += mmInStream.read(buffer, bytes, buffer.length - bytes);
                     for(int i = begin; i < bytes; i++) {
                         if(buffer[i] == "#".getBytes()[0]) {
-                            mHandler.obtainMessage(1, begin, i, buffer).sendToTarget();
+                            doAction(buffer);
+                            //mHandler.obtainMessage(1, begin, i, buffer).sendToTarget();
                             begin = i + 1;
                             if(i == bytes - 1) {
                                 bytes = 0;
@@ -391,17 +405,24 @@ public class MainActivity extends Activity  {
                 }
             }
         }
-        public void write(byte[] bytes) {
-            try {
-                mmOutStream.write(bytes);
-            } catch (IOException e) { }
+
+        public void doAction(byte[] buffer){
+            if (buffer[0] == 1){ //bend in
+                bendIn();
+            }
+            else if(buffer[0] == 2){//bend out
+                bendOut();
+            }
+            if(buffer[1] == 1){
+                dogEarIn();
+            }
+            else if(buffer[1] == 2){
+                dogEarOut();
+            }
         }
-        public void cancel() {
-            try {
-                mmSocket.close();
-            } catch (IOException e) { }
-        }
+
     }
+    /*
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -418,5 +439,6 @@ public class MainActivity extends Activity  {
             }
         }
     };
+    */
 
 }
