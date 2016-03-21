@@ -3,7 +3,6 @@
 const int RX_PIN = 2;
 const int TX_PIN = 3;
 SoftwareSerial BTserial(2, 3);
-char commandChar = ' ';
 void setup ()
 {
     Serial.begin (9600);

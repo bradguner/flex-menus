@@ -2,6 +2,8 @@
 SoftwareSerial BTserial(12, 11); //RX, TX pins
 
 char c = ' ';
+boolean ready = false;
+int sensor[2] = {0,0};
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -9,25 +11,26 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  readSensors();
+  if (ready) {
+   BTserial.print(sensor[0]);
+   BTserial.print(", ");
+   BTserial.print(sensor[1]);
+   BTserial.println();
+   ready = false;
+   delay(500);
+  }
+}
+
+void readSensors() {
   int sensor1 = analogRead(A0);
   int sensor2 = analogRead(A1);
-  BTserial.write("Start");
-  delay(1000);
-  /*BTserial.write(sensor1);
-  delay(1000);
-  BTserial.write(sensor2);
-  delay(1000);*/
+  if (sensor1 >= 610 || sensor1 <= 450 || sensor2 >= 700 || sensor2 <= 280) {
+    sensor[0] = sensor1;
+    sensor[1] = sensor2;
+    ready = true;
+  }
   
-
-  /*if (Serial.available()) {
-    if (sensor1 >= 650 || sensor1 <= 450) {
-      c = 'a';
-      BTserial.write(c);
-    }
-    if (sensor2 >= 650 || sensor2 <= 450) {
-      c = 'b';
-      BTserial.write(c);
-    }
-  }*/
+  
 }
+
