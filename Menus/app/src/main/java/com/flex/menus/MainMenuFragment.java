@@ -78,23 +78,39 @@ public class MainMenuFragment extends Fragment {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     float y = event.getRawY();
                     float top = 100;
                     float bottom = 1000;
+                    //Flexible phone dimensions
                     if (y < bottom && y > top) {
-                        if (y > 675) {
+                        if (y < 300) {
+                            activity.changeToBrightness(birghtnessButton);
+                        }
+                        if (y < 445 && y > 320) {
+                            activity.changeToBlur(blurButton);
+                        }
+                        if (y > 470) {
                             activity.changeToFilterMenu();
                         }
+                    }
+                    /*
+                    //Erin's phone dimensions
+                    if (y < bottom && y > top) {
                         if (y < 475) {
                             activity.changeToBrightness(birghtnessButton);
                         }
                         if (y < 675 && y > 475) {
                             activity.changeToBlur(blurButton);
                         }
+                        if (y > 675) {
+                            activity.changeToFilterMenu();
+                        }
                     }
+                    */
                 }
-                
+
                 return true;
             }
         });

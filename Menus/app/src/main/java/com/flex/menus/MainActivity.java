@@ -4,12 +4,26 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Set;
+import java.util.UUID;
 
 public class MainActivity extends Activity  {
 
@@ -28,6 +42,10 @@ public class MainActivity extends Activity  {
     private Button bendOutButton;
     private Button deInButton;
     private Button deOutButton;
+    private BluetoothDevice mDevice;
+
+    Thread mConnectThread;
+    BluetoothAdapter mBluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +53,34 @@ public class MainActivity extends Activity  {
         setContentView(R.layout.activity_main);
 
         RL = (RelativeLayout) findViewById(R.id.rela);
+
+        //get the bluetooth adapter
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+            Context context = getApplicationContext();
+            CharSequence text = "Bluetooth not supported on the device";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
+        //turn bluetooth on if disabled
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, 1);
+        }
+
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        // If there are paired devices
+        if (pairedDevices.size() > 0) {
+            // Loop through paired devices
+            for (BluetoothDevice device : pairedDevices) {
+                // Add the name and address to an array adapter to show in a ListView
+                mDevice = device;
+            }
+        }
 
         //sets flags default values
         menuVisible = false;
@@ -70,6 +116,10 @@ public class MainActivity extends Activity  {
                 dogEarOut();
             }
         });
+
+        mConnectThread = new ConnectThread(mDevice);
+        mConnectThread.start();
+
 
 
     } // end onCreate
@@ -269,5 +319,104 @@ public class MainActivity extends Activity  {
             }
         }
     }
+
+
+    private class ConnectThread extends Thread {
+        private final BluetoothSocket mmSocket;
+        private final BluetoothDevice mmDevice;
+        private final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+        ConnectedThread mConnectedThread;
+        public ConnectThread(BluetoothDevice device) {
+            BluetoothSocket tmp = null;
+            mmDevice = device;
+            try {
+                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+            } catch (IOException e) { }
+            mmSocket = tmp;
+        }
+        public void run() {
+            mBluetoothAdapter.cancelDiscovery();
+            try {
+                mmSocket.connect();
+            } catch (IOException connectException) {
+                try {
+                    mmSocket.close();
+                } catch (IOException closeException) { }
+                return;
+            }
+            mConnectedThread = new ConnectedThread(mmSocket);
+            mConnectedThread.start();
+        }
+        public void cancel() {
+            try {
+                mmSocket.close();
+            } catch (IOException e) { }
+        }
+    }
+
+    private class ConnectedThread extends Thread {
+        private final BluetoothSocket mmSocket;
+        private final InputStream mmInStream;
+        private final OutputStream mmOutStream;
+        public ConnectedThread(BluetoothSocket socket) {
+            mmSocket = socket;
+            InputStream tmpIn = null;
+            OutputStream tmpOut = null;
+            try {
+                tmpIn = socket.getInputStream();
+                tmpOut = socket.getOutputStream();
+            } catch (IOException e) { }
+            mmInStream = tmpIn;
+            mmOutStream = tmpOut;
+        }
+        public void run() {
+            byte[] buffer = new byte[1024];
+            int begin = 0;
+            int bytes = 0;
+            while (true) {
+                try {
+                    bytes += mmInStream.read(buffer, bytes, buffer.length - bytes);
+                    for(int i = begin; i < bytes; i++) {
+                        if(buffer[i] == "#".getBytes()[0]) {
+                            mHandler.obtainMessage(1, begin, i, buffer).sendToTarget();
+                            begin = i + 1;
+                            if(i == bytes - 1) {
+                                bytes = 0;
+                                begin = 0;
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    break;
+                }
+            }
+        }
+        public void write(byte[] bytes) {
+            try {
+                mmOutStream.write(bytes);
+            } catch (IOException e) { }
+        }
+        public void cancel() {
+            try {
+                mmSocket.close();
+            } catch (IOException e) { }
+        }
+    }
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            byte[] writeBuf = (byte[]) msg.obj;
+            int begin = (int)msg.arg1;
+            int end = (int)msg.arg2;
+
+            switch(msg.what) {
+                case 1:
+                    String writeMessage = new String(writeBuf);
+                    writeMessage = writeMessage.substring(begin, end);
+                    System.out.println(writeMessage);
+                    break;
+            }
+        }
+    };
 
 }

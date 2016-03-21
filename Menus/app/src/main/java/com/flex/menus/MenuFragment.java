@@ -65,11 +65,8 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         View fragView = inflater.inflate(R.layout.fragment_menu, container, false);
         final MainActivity activity = (MainActivity) getActivity();
-
 
         fragView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -77,23 +74,53 @@ public class MenuFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     float y = event.getRawY();
-                    if(y < 270){
-                        activity.changeBgBlackWhite();
-                    }
-                    if(y > 270 && y < 450){
-                        activity.changeBgSepia();
-                    }
-                    if(y > 450 && y < 678){
-                        activity.changeBgNormal();
-                    }
-                    if(y > 678 && y < 853){
-                        activity.changeBgVintage();
-                    }
-                    if(y > 853 && y < 1020){
-                        activity.changeBgHarsh();
+
+                    //Flexible phone dimensions
+                    float top = 100;
+                    float bottom = 1000;
+                    if (y < bottom && y > top) {
+                        if (y < 180) {
+                            activity.changeBgBlackWhite();
+                        }
+                        if (y > 196 && y < 300) {
+                            activity.changeBgSepia();
+                        }
+                        if (y > 310 && y < 430) {
+                            activity.changeBgNormal();
+                        }
+                        if (y > 440 && y < 550) {
+                            activity.changeBgVintage();
+                        }
+                        if (y > 560 && y < 661) {
+                            activity.changeBgHarsh();
+                        }
                     }
 
+
+                    /*
+                    //Erin's Phone dimensions
+                    float top = 100;
+                    float bottom = 1000;
+                    if (y < bottom && y > top) {
+                        if (y < 270) {
+                            activity.changeBgBlackWhite();
+                        }
+                        if (y > 270 && y < 450) {
+                            activity.changeBgSepia();
+                        }
+                        if (y > 450 && y < 678) {
+                            activity.changeBgNormal();
+                        }
+                        if (y > 678 && y < 853) {
+                            activity.changeBgVintage();
+                        }
+                        if (y > 853 && y < 1020) {
+                            activity.changeBgHarsh();
+                        }
+                    }
+                    */
                 }
+
                 return true;
             }
         });
