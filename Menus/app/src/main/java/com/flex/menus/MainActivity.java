@@ -160,8 +160,10 @@ public class MainActivity extends Activity  {
         mode = 0;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_fade, R.anim.exit_fade);
         MenuFragment filterFragment = new MenuFragment();
         fragmentTransaction.replace(R.id.fragmentContainer, filterFragment, "FilterMenuFragment");
+
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
