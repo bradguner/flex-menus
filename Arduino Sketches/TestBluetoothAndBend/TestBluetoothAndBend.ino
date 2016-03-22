@@ -1,3 +1,6 @@
+#include <SoftwareSerial.h>
+SoftwareSerial BTserial(12, 11); //RX, TX pins
+
 boolean ready = false;
 byte sensor[2] = {0,0};
 void setup() {
