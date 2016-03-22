@@ -104,7 +104,7 @@ public class MainActivity extends Activity  {
         blur = 0;
         lastButtonPressed = null;
 
-
+        /*
         // button to mimic bend gesture - remove after
         bendInButton = (Button) findViewById(R.id.bendInBtn);
         bendInButton.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +130,7 @@ public class MainActivity extends Activity  {
                 dogEarOut();
             }
         });
+        */
 
         mConnectThread = new ConnectThread(mDevice);
         mConnectThread.start();
