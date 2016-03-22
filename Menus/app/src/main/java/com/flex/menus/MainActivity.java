@@ -383,7 +383,7 @@ public class MainActivity extends Activity  {
             mmOutStream = tmpOut;
         }
         public void run() {
-            byte[] buffer = new byte[3];
+            final byte[] buffer = new byte[3];
             int begin = 0;
             int bytes = 0;
             while (true) {
@@ -391,7 +391,14 @@ public class MainActivity extends Activity  {
                     bytes += mmInStream.read(buffer, bytes, buffer.length - bytes);
                     for(int i = begin; i < bytes; i++) {
                         if(buffer[i] == "#".getBytes()[0]) {
-                            doAction(buffer);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    doAction(buffer);
+                                }
+                            });
+                            ;
                             //mHandler.obtainMessage(1, begin, i, buffer).sendToTarget();
                             begin = i + 1;
                             if(i == bytes - 1) {
