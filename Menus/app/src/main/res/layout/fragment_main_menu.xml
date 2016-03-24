@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageButton3"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="60dp"
         android:background="@drawable/blur"/>
 
     <!-- FILTERS -->
@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="95dp"
         android:background="@drawable/filter"/>
         <!--android:onClick="changeToFilterMenu" /> -->
 
@@ -47,8 +47,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageButton2"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="105dp"
+        android:layout_marginBottom="95dp"
         android:background="@drawable/brightness"/>
 
 </FrameLayout>

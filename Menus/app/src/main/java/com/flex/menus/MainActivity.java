@@ -54,6 +54,7 @@ public class MainActivity extends Activity  {
 
         RL = (RelativeLayout) findViewById(R.id.rela);
 
+        /*
         //get the bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
@@ -95,6 +96,7 @@ public class MainActivity extends Activity  {
                 System.out.println(mDevice);
             }
         }
+        */
 
         //sets flags default values
         menuVisible = false;
@@ -104,7 +106,7 @@ public class MainActivity extends Activity  {
         blur = 0;
         lastButtonPressed = null;
 
-        /*
+
         // button to mimic bend gesture - remove after
         bendInButton = (Button) findViewById(R.id.bendInBtn);
         bendInButton.setOnClickListener(new View.OnClickListener() {
@@ -130,10 +132,10 @@ public class MainActivity extends Activity  {
                 dogEarOut();
             }
         });
-        */
 
-        mConnectThread = new ConnectThread(mDevice);
-        mConnectThread.start();
+
+        //mConnectThread = new ConnectThread(mDevice);
+        //mConnectThread.start();
 
 
 
@@ -336,7 +338,7 @@ public class MainActivity extends Activity  {
         }
     }
 
-
+    /*
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
@@ -432,6 +434,7 @@ public class MainActivity extends Activity  {
         }
 
     }
+    */
     /*
     Handler mHandler = new Handler() {
         @Override

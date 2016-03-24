@@ -8,12 +8,13 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <!--
     <ImageView
         android:id="@+id/imageView"
         android:background="@drawable/menus"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-    </ImageView>
+    </ImageView> -->
 
     <ImageButton
         android:layout_width="wrap_content"
